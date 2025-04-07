@@ -36,7 +36,7 @@ end)
 window0.transparency = 1
 window0.setPosition(UDim2.new(10,0,10,0))
 local window1 = engine.new({
-    text =  'ECOS: La Brea Cheat Table',
+    text =  'ECOS: La Brea',
     size = UDim2.new(1000, 800),
     color = Color3.new(0,0,0)
 })
