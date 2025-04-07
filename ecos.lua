@@ -21,16 +21,10 @@ local function modChecker()
     end
 end modChecker()
 
-task.spawn(function()
-    while true do
-        wait(10)
-        modChecker()
-    end
-end)
-
 game.Players.PlayerAdded:Connect(function(player)
     local rank = player:GetRankInGroup(group)
     if rank > 1 then
+        warn('Mod Detected')
         game.Players.LocalPlayer:Kick('Mod Detected')
     end
 
