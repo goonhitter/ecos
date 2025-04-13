@@ -407,10 +407,13 @@ local tab5 = window1.new({
     text = "Miscellaneous"
 })
 
+local enabledMinigame = false
+
 local enableMinigameCompletion = tab5.new('button', {
 	text = 'Enable Auto-Minigame'
 })
 enableMinigameCompletion.event:Connect(function()
+    enabledMinigame = true
     local event;
     event = hookmetamethod(game, "__namecall",function(self, ...)
         local args = {...}
@@ -421,6 +424,17 @@ enableMinigameCompletion.event:Connect(function()
             return event(self, 0)
         end
         return event(self, unpack(args))
+    end)
+
+    game:GetService('RunService').RenderStepped:Connect(function()
+        if enabledMinigame == true then
+            local statsFrame = game.Players.LocalPlayer.PlayerGui:FindFirstChild('Stats')
+            if statsFrame and statsFrame:FindFirstChild('Frame') then
+                if statsFrame.Frame.Minigame.Visible == true then
+                    keytap(32)
+                end
+            end
+        end
     end)
 end)
 
