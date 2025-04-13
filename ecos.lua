@@ -438,6 +438,85 @@ enableMinigameCompletion.event:Connect(function()
     end)
 end)
 
+local disableScent = tab5.new('button', {
+	text = 'Disable Scent'
+})
+disableScent.event:Connect(function()
+    local event;    
+    event = hookmetamethod(game, "__namecall",function(self, ...)
+        local args = {...}
+        local method = getnamecallmethod()
+
+        if tostring(self) == 'Trail' and method == 'FireServer' then -- if the event name == specficied event name and the method is FireServer or InvokeServer then
+            warn(tostring(self)..' Fired with method '..method)
+            return event(self, {
+                [1] = CFrame.new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                [2] = CFrame.new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                [3] = CFrame.new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                [4] = CFrame.new(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+            })
+        end
+        return event(self, unpack(args))
+    end)
+end)
+
+local function spawnMigrationZones()
+    local u13 = workspace:WaitForChild("MigrationZones")
+    local v8 = workspace:WaitForChild("MapCorners")
+    local u21 = v8.X1
+    local v22 = v8.X2
+    local v23 = v8.Y1
+    local v24 = (u21.Position - v22.Position).magnitude
+    local v25 = (u21.Position - v23.Position).magnitude
+    local v26 = (Vector3.new(-1, 0, 0)).magnitude
+    local v27 = (Vector3.new(0, 0, -1)).magnitude
+    local u28 = v24 / v26
+    local u29 = v25 / v27
+    local u30 = false
+    local u31 = 0
+
+    local v49 = u13:GetAttribute('Bison')
+    if v49 then
+        local v50 = v49 - u21.Position
+        local u12 = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel.MigrationZone:Clone()
+        u12.Visible = true
+        u12.Parent = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel
+        local newTextLabel = Instance.new('TextLabel')
+        newTextLabel.Parent = u12
+        newTextLabel.BackgroundTransparency = 1
+        newTextLabel.Size = UDim2.new(1,0,1,0)
+        newTextLabel.Text = 'Bison'
+        newTextLabel.TextScaled = true
+        newTextLabel.TextColor3 = Color3.new(1,1,1)
+        newTextLabel.TextStrokeTransparency = 0
+        u12.Position = UDim2.new((Vector3.new(0, 0, 0)).X + v50.X / u28 - u12.Size.X.Scale / 2, 0, (Vector3.new(0, 0, 0)).Z + v50.Z / u29 - u12.Size.Y.Scale / 2, 0)
+    end
+
+    local v499 =  u13:GetAttribute('WesternHorse')
+    if v499 then
+        local u12 = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel.MigrationZone:Clone()
+        u12.Visible = true
+        u12.Parent = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel
+        local newTextLabel = Instance.new('TextLabel')
+        newTextLabel.Parent = u12
+        newTextLabel.BackgroundTransparency = 1
+        newTextLabel.Size = UDim2.new(1,0,1,0)
+        newTextLabel.Text = 'Western Horse'
+        newTextLabel.TextScaled = true
+        newTextLabel.TextColor3 = Color3.new(1,1,1)
+        newTextLabel.TextStrokeTransparency = 0
+        local v50 = v499 - u21.Position
+        u12.Position = UDim2.new((Vector3.new(0, 0, 0)).X + v50.X / u28 - u12.Size.X.Scale / 2, 0, (Vector3.new(0, 0, 0)).Z + v50.Z / u29 - u12.Size.Y.Scale / 2, 0)
+    end
+end
+
+local spawnMigration = tab5.new('button', {
+	text = 'Spawn Migration Zones'
+})
+spawnMigration.event:Connect(function()
+    spawnMigrationZones()
+end)
+
 --Settings
 local tab4 = window1.new({
     text = "Settings"
