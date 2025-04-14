@@ -516,7 +516,7 @@ end
 local function clearMigrationZones()
     if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
     for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel:GetChildren()) do
-        if v.Name == 'MigrationZones' then
+        if v.Name == 'ModifiedMigrationZone' then
             v:Destroy()
         end
     end
