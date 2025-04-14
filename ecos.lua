@@ -461,7 +461,7 @@ disableScent.event:Connect(function()
 end)
 
 local function spawnMigrationZones()
-    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstChild('Stats') then return end
     local u13 = workspace:WaitForChild("MigrationZones")
     local v8 = workspace:WaitForChild("MapCorners")
     local u21 = v8.X1
@@ -514,7 +514,7 @@ local function spawnMigrationZones()
 end
 
 local function clearMigrationZones()
-    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstChild('Stats') then return end
     for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel:GetChildren()) do
         if v.Name == 'ModifiedMigrationZone' then
             v:Destroy()
@@ -523,7 +523,7 @@ local function clearMigrationZones()
 end
 
 local function updateMigrationZones()
-    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstChild('Stats') then return end
     clearMigrationZones()
     spawnMigrationZones()
 end
