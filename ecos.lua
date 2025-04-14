@@ -461,6 +461,7 @@ disableScent.event:Connect(function()
 end)
 
 local function spawnMigrationZones()
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
     local u13 = workspace:WaitForChild("MigrationZones")
     local v8 = workspace:WaitForChild("MapCorners")
     local u21 = v8.X1
@@ -481,6 +482,7 @@ local function spawnMigrationZones()
         local u12 = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel.MigrationZone:Clone()
         u12.Visible = true
         u12.Parent = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel
+        u12.Name = 'ModifiedMigrationZone'
         local newTextLabel = Instance.new('TextLabel')
         newTextLabel.Parent = u12
         newTextLabel.BackgroundTransparency = 1
@@ -497,6 +499,7 @@ local function spawnMigrationZones()
         local u12 = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel.MigrationZone:Clone()
         u12.Visible = true
         u12.Parent = game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel
+        u12.Name = 'ModifiedMigrationZone'
         local newTextLabel = Instance.new('TextLabel')
         newTextLabel.Parent = u12
         newTextLabel.BackgroundTransparency = 1
@@ -510,11 +513,30 @@ local function spawnMigrationZones()
     end
 end
 
+local function clearMigrationZones()
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
+    for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Stats.Frame.Map.ImageLabel:GetChildren()) do
+        if v.Name == 'MigrationZones' then
+            v:Destroy()
+        end
+    end
+end
+
+local function updateMigrationZones()
+    if not game.Players.LocalPlayer.PlayerGui:FindFirstCHild('Stats') then return end
+    clearMigrationZones()
+    spawnMigrationZones()
+end
+
 local spawnMigration = tab5.new('button', {
 	text = 'Spawn Migration Zones'
 })
 spawnMigration.event:Connect(function()
     spawnMigrationZones()
+    
+    local u13 = workspace:WaitForChild("MigrationZones")
+    u13:GetAttributeChangedSignal('Bison'):Connect(updateMigrationZones)
+    u13:GetAttributeChangedSignal('WesternHorse'):Connect(updateMigrationZones)
 end)
 
 --Settings
