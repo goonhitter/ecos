@@ -15,7 +15,7 @@ local function modChecker()
         pcall(function()
             if plr:GetRankInGroup(group) > 1 and checkerEnabled == true then
                 warn('Mod Detected')
-                game.Players.LocalPlayer:Kick('Mod Detected')
+                game.Players.LocalPlayer:Kick('Mod Detected: '..plr.Name)
             end
         end)
     end
